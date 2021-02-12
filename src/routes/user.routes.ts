@@ -21,7 +21,10 @@ usersRouter.post('/',async(request,response) => {
   }
 
   catch(err){
-    return response.status(400).json({ error:"OCORREU UMA FODA" });
+
+
+   return response.status(400).json({ error:err.message});
+
   }
 
 
