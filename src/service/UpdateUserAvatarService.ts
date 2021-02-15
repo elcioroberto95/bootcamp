@@ -2,6 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import { getRepository } from 'typeorm';
 import uploadConfig from '../config/upload';
+import AppError from '../errors/AppError';
 import Users from '../models/User';
 interface Request {
   user_id:string;
@@ -15,12 +16,12 @@ class UpdateUserAvatarService {
     const user = await userRepository.findOne(user_id);
 
     if(!user){
-      throw new Error('Only authenticated users can change avatar');
+      throw new AppError('Only authenticated users can change avatar',401);
     }
 
     if(user.avatar){
       //delete previos avatar
-      const userAvatarFilePath = path.join( uploadConfig.directory,user.avatar);
+      const userAvatarFilePath = path.join(uploadConfig.directory,user.avatar);
 
       const userAvatarFileExists = await fs.promises.stat(userAvatarFilePath);
 
