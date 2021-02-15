@@ -21,7 +21,7 @@ apppointmentsRoutes.use(ensureAuthenticated);
 
 ///post
   apppointmentsRoutes.post('/',async(request,response) => {
-   try {
+
     const { provider_id, date } = request.body;
 
     const parsedDate = parseISO(date);
@@ -34,10 +34,6 @@ apppointmentsRoutes.use(ensureAuthenticated);
     })
 
     return response.json(appointment);
-   }
-   catch(err){
-    return response.status(400).json({error:err.message});
-  }
 
   })
 
